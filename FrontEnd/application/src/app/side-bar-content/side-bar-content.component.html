@@ -1,0 +1,35 @@
+<div class="content">
+
+    <div *ngIf="showSemester">
+        <p>Mes sessions:</p>
+
+        <ul>
+            <li *ngFor="let semester of semesterList" 
+                (click)="setSelection('s', semester.name)">
+
+                <a [class.selected]="verifySelection('s', semester.name)" 
+                [routerLink]="['/session/' + getLink(semester.name)]"
+                [queryParams]="{ sessionId : semester.id_session}">
+                {{semester.name}}</a>
+
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="showTeachings">
+        <p>Enseignement:</p>
+        <ul>
+            <li *ngFor="let teaching of teachingList" 
+            (click)="setSelection('t', teaching.name)">
+
+                <a [class.selected]="verifySelection('t', teaching.name)" 
+                [routerLink]="['/enseignement/' + getLink(teaching.name)]"
+                [queryParams]="{ sessionId : teaching.id_session}">
+                {{teaching.name}}</a>
+            
+            </li>
+        </ul>
+    </div>
+
+
+</div>

@@ -1,0 +1,47 @@
+<div *ngFor="let class of classList" class="singleCoursContainer">
+    <div class="titreCoursContainer">
+        {{class.name + " (" + class.classTag + ")"}}
+    </div>
+
+    <div class="infoCoursContainer">
+        <p style="font-weight: bold;margin-bottom: 15px;">Groupe : <span style="font-weight: 400;">{{class.no_group}}</span> </p>
+        <p style="font-weight: bold;margin-bottom: 5px;">Professeur(s) en charge : </p>
+
+        <ul>
+            <li *ngFor="let teacher of class.teachers">
+                <p>{{teacher.first_name + " " + teacher.last_name}}</p>
+            </li>
+        </ul>
+
+         
+        <table *ngIf="class.assigments.length > 0" class="tableauListeResmises">
+            <col style="width:93%;">
+            <col style="width:7%">
+
+
+            <tr>
+                <th class="tableauTitresColones" style="text-align: left;">Remise :</th>
+                <th>Status</th>
+            </tr>
+
+            <tr *ngFor="let homework of class.assigments">
+                <td [routerLink]="['/session/' + selectedSession + '/' +  class.classTag]" 
+                    [queryParams]="{ assignmentId : homework.id_assignment}"
+                    class="hyperlien first-column"><u>{{homework.name}}</u></td>
+
+                <td class="second-column">
+                    <span [class]="getIcon(homework.status)" class="material-symbols-outlined">{{getIcon(homework.status)}}</span>
+                </td>
+            </tr>
+
+
+        </table>
+
+        <div *ngIf="class.assigments.length == 0">
+            <br>
+            <p style="font-weight: bold;">Aucune remise pour ce cours</p>
+        </div>
+
+
+    </div>
+</div>

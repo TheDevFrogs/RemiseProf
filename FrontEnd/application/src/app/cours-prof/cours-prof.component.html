@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<div *ngFor="let class of classList" class="singleTravailContainer">
+    <div class="titreTravailContainer">
+        {{class.name + " (" + class.classTag + ")"}}
+    </div>
+
+    <div class="detailTravailContainer">
+        
+        <p style="font-weight: bold;margin-bottom: 15px;">Groupe : <span style="font-weight: 400;">{{class.no_group}}</span> </p>
+        <p style="font-weight: bold;margin-bottom: 5px;">Professeur(s) en charge</p>
+
+        <ul>
+            <li *ngFor="let teacher of class.teachers">
+                <p>{{teacher.first_name + " " + teacher.last_name}}</p>
+            </li>
+        </ul>
+
+        
+        <table class="tableauListeResmises">
+            <col style="width:88%;">
+            <col style="width:12%">
+            <tr>
+                <th *ngIf="class.assigments.length > 0" class="tableauTitresColones" style="text-align: left;">Remise :</th>
+                <th *ngIf="class.assigments.length == 0" style="text-align: left;">Aucune remise pour ce cours</th>
+                <td class="second-column">
+                    <div [routerLink]="['nouvelleRemise']"
+                         [queryParams]="{ sessionId : sessionID ,groupId : class.id_group, editing : false, assignmentId: '-1'}"
+                         class="button buttonAjouter">
+                        <span style="vertical-align: middle;">Ajouter Remise </span><span class="iconButton material-symbols-outlined">add</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <ng-container *ngIf="class.assigments.length > 0">
+            <table *ngFor="let assigment of class.assigments" class="tableauListeResmises">
+                <col style="width:75%;">
+                <col style="width:15%">
+                <col *ngIf="false" style="width:10%">
+               
+                <tr>
+                    <td>
+                        <p [routerLink]="['nouvelleRemise']"
+                           [queryParams]="{ sessionId : sessionID ,groupId : class.id_group, editing : true, assignmentId: assigment.id_assignment}" 
+                           class="hyperlien" style="line-height:30px"> 
+                           <u>{{formatDateObject(assigment.due_date) + " " + assigment.name}}</u>
+                        </p>
+                    </td>
+                    <td class="button">
+                        <div class="buttonCorriger"
+                             [routerLink]="['corriger-multiple']"
+                             [queryParams]="{assignmentName : this.assigment.name, assignmentId : this.assigment.id_assignment}">
+                            <span style="vertical-align: middle;">Correction de groupe</span><span class="iconButton material-symbols-outlined">edit</span>
+                        </div>
+                    </td>
+                    <td *ngIf="false" class="button">
+                        <div class="buttonVueEnsemble"
+                             [routerLink]="['corriger-single']"
+                             [queryParams]="{assignmentName : this.assigment.name, assignmentId : this.assigment.id_assignment}">
+                            <span style="vertical-align: middle;">Aperçu</span><span class="iconButton material-symbols-outlined">visibility</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </ng-container>
+
+    </div>
+</div>

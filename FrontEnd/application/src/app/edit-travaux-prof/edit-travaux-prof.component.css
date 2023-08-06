@@ -1,0 +1,116 @@
+.singleTravailContainer{
+    background-color: #d9d9d9;
+    border-radius: 40px;
+    box-shadow: 0px 3px 5px grey;
+    margin-top: 25px;
+}
+
+.titreTravailContainer{
+    background-color: #018849;
+    border-radius: 40px;
+    padding: 15px;
+    box-shadow: 0px 3px 5px grey;
+    color: white;
+    text-align: center;
+    font-size: x-large;
+}
+
+.textInput{
+    border-radius: 5px;
+    padding: 5px;
+    font-family: sans-serif;
+}
+
+
+
+.remiseTravailContainer{
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 3px 5px grey;
+    margin-top: 10px;
+}
+
+.remiseTitreTravailContainer{
+    background-color: #018849;
+    border-radius: 30px;
+    padding: 5px;
+    padding-left: 5px;
+    box-shadow: 0px 3px 5px grey;
+    color: white;
+    text-align: left;
+    font-size: x-large;
+}
+
+
+.detailTravailContainer{
+    padding: 25px;
+}
+
+.detail{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.tableauListeResmises{
+    width: 100%;
+}
+
+.buttonTable{
+    margin-top: 15px;
+}
+
+.buttonEnregistrer{
+    background-color: #2980b9;
+    border-radius: 25px;
+    padding: 8px;
+    box-shadow: 0px 3px 5px grey;
+    color: white;
+    text-align: center;
+    font-size: 1.1em;
+    width: 150px;
+}
+
+.buttonEnregistrer:hover{
+    box-shadow: 0px 0px 0px grey;
+}
+
+.buttonSupprimer{
+    background-color: #df1f12;
+    border-radius: 25px;
+    padding: 8px;
+    box-shadow: 0px 3px 5px grey;
+    color: white;
+    text-align: center;
+    font-size: 1.1em;
+    margin-left: 5px;
+    width: 150px;
+}
+
+
+.buttonSupprimer:hover{
+    box-shadow: 0px 0px 0px grey;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.iconButton{
+    vertical-align: middle;
+}
+
+.iconButtonClock{
+    padding-left: 5px;
+    vertical-align: middle;
+    color: #000000;
+}
+
+.button{
+    cursor: pointer;
+}

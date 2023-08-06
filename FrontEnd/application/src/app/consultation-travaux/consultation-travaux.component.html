@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<div class="singleTravailContainer">
+    <div class="titreTravailContainer">
+        Remise du travail {{assignment.name}} ({{selectedClass}})
+    </div>
+
+    <div class="detailTravailContainer">
+        <h3>Informations:</h3>
+        <div class="detail">
+            <table>
+                <col style="width:45%;">
+                <col style="width:55%">
+
+                <tr>
+                    <td>
+                        <p style="line-height:30px"> Ouverture de la remise:</p>
+                    </td>
+                    <td style="padding-left: 50px;">
+                        {{formatDateObject(assignment.available_date)}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="line-height:30px"> Date limite de remise du travail: </p>
+                    </td>
+                    <td style="padding-left: 50px;">
+                        {{formatDateObject(assignment.due_date)}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="line-height:30px"> Fermeture de la zone de dépot: </p>
+                    </td>
+                    <td style="padding-left: 50px;">
+                        {{formatDateObject(assignment.close_date)}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <h3 style="line-height:30px"> Description: </h3>
+        <p style="padding-left: 20px;">{{assignment.description}}</p>
+        <br>
+
+
+
+        <div *ngIf="displayAssignment">
+            <h3>Documents fournis par l'enseignant</h3>
+            
+            <p (click)="downloadTeacherFiles(assignment.file.id_file)" class="detail" class="button hyperlien"><u>{{assignment.file.displayed_name + assignment.file.extension}}</u></p>
+                        
+                 
+        </div>
+
+        <h3 *ngIf="!displayAssignment" style="margin-bottom: 5px;margin-top: 5px;">Aucun documents fournis par l'enseignant</h3>
+        
+
+        
+
+        <table class="tableauListeResmises">
+            <col style="width:86%;">
+            <col style="width:14%">
+            <tr>
+                <h3> Copies corrigés:</h3>
+                <th> Heure de remise</th>
+            </tr>
+            <tr *ngIf="assignment.corrected_work_files.length == 0">
+                <div class="detailNotFound">
+                    <p style="line-height:30px">Aucun travail corrigé</p>
+                </div>
+            </tr>
+            <tr *ngFor="let correction of assignment.corrected_work_files">
+                <td class="detail hyperlien" (click)="downloadTeacherCorrection(correction.id_file, correction.displayed_name + correction.extension)"><u><p style="line-height:30px">{{correction.displayed_name + correction.extension}}</p></u></td>
+                <td style="text-align: center;">{{formatDateObject(correction.handed_date)}}</td>
+            </tr>
+            
+        </table>
+
+        <table class="tableauListeResmises">
+            <col style="width:86%;">
+            <col style="width:14%">
+            <tr>
+                <h3> Remises antérieures</h3>
+                <th> Heure de remise</th>
+            </tr>
+            <tr *ngIf="assignment.handed_work_files.length == 0">
+                <div class="detailNotFound">
+                    <p style="line-height:30px">Aucun travail n'a été remis</p>
+                </div>
+            </tr>
+            <tr *ngFor="let correction of assignment.handed_work_files">
+                <td class="detail hyperlien" (click)="downloadHandedIn(correction.id_file, correction.displayed_name)">
+                    <u><p style="line-height:30px">{{correction.displayed_name}}</p></u>
+                </td>
+                <td class="second-column">{{formatDateObject(correction.handed_date)}}</td>
+            </tr>
+            
+        </table>
+
+        <div *ngIf="displayFileDrop" class=remiseTravailContainer>
+            <div class="remiseTitreTravailContainer">
+                <p style="padding-left: 10px;">Nouvelle remise</p>
+            </div>
+            <div class="detailTravailContainer">
+                <app-drop-box [enableSend]="true" (onFileSave)="handInAssignment($event)"></app-drop-box>
+            </div>
+        </div>
+
+        <h3 *ngIf="!displayFileDrop && !early">La remise est maintenant fermée</h3>
+        <h3 *ngIf="!displayFileDrop && early">La remise n'est pas encore ouverte</h3>
+
+    </div>
+</div>

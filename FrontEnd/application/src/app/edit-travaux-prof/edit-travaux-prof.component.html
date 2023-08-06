@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<div class="singleTravailContainer">
+    <div class="titreTravailContainer">
+        Edition d'un travail
+    </div>
+
+    <div class="detailTravailContainer">
+        <h3>Informations:</h3>
+
+        <form [formGroup]="editForm">
+            <div class="detail">
+
+                <table class="tableauListeResmises">
+                    <col style="width:15%">
+                    <col style="width:85%">
+
+                    <tr>
+                        <td style="line-height:30px"><span style="color: red;">*</span>Nom du travail: </td>
+                        <td> 
+                            <input type="text" class="textInput" rows="1" cols="50" placeholder="Nom" maxlength="150" style="resize:none;" formControlName="nom">
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style="line-height:30px"><span style="color: red;">*</span>Ouverture des dépots: </td>
+                        <td>
+                            <input class="textInput" [owlDateTimeTrigger]="tempsOuverture" [owlDateTime]="tempsOuverture" placeholder="Choisir date/temps" formControlName="dateOuverture">
+                            <owl-date-time #tempsOuverture></owl-date-time>  <span class="iconButtonClock material-symbols-outlined">event</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="line-height:30px"><span style="color: red;">*</span>Date limite de remise: </td>
+                        <td> 
+                            <input class="textInput" [owlDateTimeTrigger]="tempsRemise" [owlDateTime]="tempsRemise" placeholder="Choisir date/temps" formControlName="dateLimite">
+                            <owl-date-time #tempsRemise></owl-date-time><span style="vertical-align: middle;"></span>  <span class="iconButtonClock material-symbols-outlined">event</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="line-height:30px"><span style="color: red;">*</span>Fermeture des dépots: </td>
+                        <td> 
+                            <input class="textInput" [owlDateTimeTrigger]="tempsFermeture" [owlDateTime]="tempsFermeture" placeholder="Choisir date/temps" formControlName="dateFermeture">
+                            <owl-date-time #tempsFermeture></owl-date-time>  <span class="iconButtonClock material-symbols-outlined">event</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <h3><span style="color: red;">*</span>Description:</h3>
+            <div style="margin-bottom: 15px; margin-top: 10px;">
+                <textarea class="textInput" rows="6" placeholder="Description du travail." style="width:100%; font-size: 1.3em; resize: none;" formControlName="description"></textarea>
+            </div>
+
+        </form>
+        <h3>Fichiers:</h3>
+        <div class=remiseTravailContainer>
+            <div class="remiseTitreTravailContainer">
+                <p style="padding-left: 10px;">Ajoutez les fichiers associés ce travail</p>
+            </div>
+            <div class="detailTravailContainer">
+                <app-drop-box [enableSend]="false" (onFileChanges)="fileChanged($event)"></app-drop-box>
+            </div>
+        </div>
+
+
+        <table class="buttonTable">
+            <col style="width:15%">
+            <col style="width:15%">
+            <col style="width:15%">
+            <col style="width:55%">
+            <tr>
+                <td *ngIf="!this.eddition">
+                    <div (click)="enregistrer()" 
+                         class="button buttonEnregistrer">
+                        <span style="vertical-align: middle;">Enregistrer</span><span class="iconButton material-symbols-outlined">save</span>
+                    </div>
+                </td>
+                <td *ngIf="this.eddition">
+                    <div (click)="updateAssignment()" 
+                         class="button buttonEnregistrer">
+                        <span style="vertical-align: middle;">Mettre à jour</span><span class="iconButton material-symbols-outlined">save</span>
+                    </div>
+                </td>
+                <td>                    
+                    <div [routerLink]="['..']" 
+                         queryParamsHandling="preserve"
+                         class="button buttonSupprimer">
+                        <span style="vertical-align: middle;">Annuler</span><span class="iconButton material-symbols-outlined">close</span>
+                    </div>
+                <td *ngIf="this.eddition">
+                    <div *ngIf="this.eddition" 
+                         [routerLink]="['..']"
+                         [queryParams]="{refresh : true}"
+                         queryParamsHandling="merge"
+                         (click)="supprimer()" class="button buttonSupprimer">
+                        <span style="vertical-align: middle;">Supprimer</span><span class="iconButton material-symbols-outlined">delete</span>
+                    </div>
+                </td>
+                    
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <p><span style="color: red;">*</span> Champs obligatoires</p>
+                </td>
+            </tr>
+        </table>
+
+        <div *ngIf="showError">
+            <p style="color: red;"> Certains champ sont invalides</p>
+        </div>
+
+    </div>
+</div>
